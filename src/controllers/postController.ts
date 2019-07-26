@@ -2,13 +2,16 @@ import {Request, Response} from "express";
 import Post from "../post";
 
 export let allPosts = (req: Request, res: Response) => {
-    let posts = Post.find((err: any, posts: any) => {
-        if (err) {
-            res.send(err)
-        } else {
-            res.send(posts);
-        }
-    })
+    let posts = Post
+        .find()
+        .populate('comments')
+        .exec((err: any, post: any) => {
+            if (err) {
+                res.send(err)
+            } else {
+                res.send(post);
+            }
+        })
 };
 
 export let getPost = (req: Request, res: Response) => {

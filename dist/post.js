@@ -12,7 +12,8 @@ mongoose.connect(uri, { useNewUrlParser: true }, (err) => {
 });
 exports.PostsSchema = new mongoose.Schema({
     title: { type: String, required: true },
-    author: { type: String, required: true }
+    author: { type: String, required: true },
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 });
 const Post = mongoose.model('Post', exports.PostsSchema);
 exports.default = Post;

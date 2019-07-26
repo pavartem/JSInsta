@@ -2,12 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const post_1 = require("../post");
 exports.allPosts = (req, res) => {
-    let posts = post_1.default.find((err, posts) => {
+    let posts = post_1.default
+        .find()
+        .populate('comments')
+        .exec((err, post) => {
         if (err) {
             res.send(err);
         }
         else {
-            res.send(posts);
+            res.send(post);
         }
     });
 };
